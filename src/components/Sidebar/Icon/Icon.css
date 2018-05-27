@@ -1,0 +1,33 @@
+.icon-component{
+    width:100%;
+    height:50px;
+    text-align:center;
+    line-height:50px;
+    transition:0.3s;
+    overflow:hidden;
+    cursor:pointer;
+}
+.icon-component:hover .icon,.icon-component:hover .title{
+    background:#eee;
+}
+.icon{
+    width:100%;
+    height:100%;
+    float:left;
+    background:#fff;
+}
+.sidebar.active .icon{
+    width:25%;
+}
+.title{
+    width:75%;
+    background:#fff;
+    display:none;
+    float:right;
+    text-align:left;
+    padding:0 30px;
+    box-sizing: border-box;
+}
+.sidebar.active .title{
+    display:block;
+}
