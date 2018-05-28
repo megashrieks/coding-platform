@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import ContestList from '../ContestList/ContestList';
-import ContestTypes from '../ContestTypes/ContestTypes';
+import ContestList from './ContestList/ContestList';
+import ContestTypes from './ContestTypes/ContestTypes';
 
 class Dashboard extends Component{
     constructor(props) {

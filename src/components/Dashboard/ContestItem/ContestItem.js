@@ -10,7 +10,6 @@ class ContestItem extends Component {
     }
     render() {
         var active = this.state.active ? " active" : "";
-        var url = this.props.url;
         return (
             <div className={"contest " + this.props.type + active}>
                 <Link to={"contests/"+this.props.linkId}>
