@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './ContestItem.css';
 class ContestItem extends Component {
     state = {
@@ -9,19 +10,22 @@ class ContestItem extends Component {
     }
     render() {
         var active = this.state.active ? " active" : "";
+        var url = this.props.url;
         return (
-            <div className={"contest " + this.props.type+active}>
-                <div className="contest-title">
-                    {this.props.title}
-                </div>
-                <div className="contest-details">
-                    {this.props.details}
-                </div>
+            <div className={"contest " + this.props.type + active}>
+                <Link to={"contests/"+this.props.linkId}>
+                    <div className="contest-title">
+                        {this.props.title}
+                    </div>
+                    <div className="contest-details">
+                        {this.props.details}
+                    </div>
+                    <div className="additional-info">
+                        {this.props.additionalDetails}
+                    </div>
+                </Link>
                 <div className="info-toggle" onClick={this.toggleInfo}>
                     <i className = "fa fa-info-circle"></i>
-                </div>
-                <div className="additional-info">
-                    {this.props.additionalDetails}
                 </div>
             </div>
         );

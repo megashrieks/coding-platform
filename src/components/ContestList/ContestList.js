@@ -20,22 +20,26 @@ class ContestList extends Component{
                     title: "November Challenge",
                     type: "ongoing",
                     details: "Monthly challenge in this site for November",
-                    additionalDetails: "This contest is in progress"
+                    additionalDetails: "This contest is in progress",
+                    linkId:"1"
                 }, {
                     title: "October Challenge",
                     type: "mock",
                     details: "Monthly challenge in this site for October",
-                    additionalDetails: "This contest has already ended"
+                    additionalDetails: "This contest has already ended",
+                    linkId: "2"
                 }, {
                     title: "December Challenge",
                     type: "future",
                     details: "Monthly challenge in this site for December",
-                    additionalDetails: "This contest will start on december"
+                    additionalDetails: "This contest will start on december",
+                    linkId: "3"
                 }, {
                     title: "Codex 2k18 Challenge",
                     type: "ongoing",
                     details: "Coding Challenge for all the good programmers out there",
-                    additionalDetails: "This contest is in progress"
+                    additionalDetails: "This contest is in progress",
+                    linkId: "4"
                 }
             ]
         });
@@ -49,7 +53,8 @@ class ContestList extends Component{
                 <ContestItem
                     {...element}
                     index={index}
-                    key={"contest" + index}/>
+                    key={"contest" + index}
+                />
             );
         });
         return (

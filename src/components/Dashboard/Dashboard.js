@@ -25,8 +25,8 @@ class Dashboard extends Component{
                 <ContestTypes
                     types={this.types}
                     onActive = {this.onActive}
-                />
-                <ContestList activeParameter = {this.state.activeParameter}/>
+                /> 
+                <ContestList activeParameter={this.state.activeParameter}/>
             </Fragment>
         )
     }
