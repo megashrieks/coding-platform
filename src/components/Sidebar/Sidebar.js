@@ -6,7 +6,6 @@ class Sidebar extends Component{
         active: false
     };
     Activate = () => {
-        console.log("Activating");
         this.setState((prevState)=>({ active: !prevState.active }));
     }
     render() {

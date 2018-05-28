@@ -1,0 +1,74 @@
+.contest-list{
+    width:100%;
+    height:100%;
+    padding:20px;
+    padding-bottom:0;
+}
+.contest{
+    width:25%;
+    height:300px;
+    margin:30px 4%;
+    float:left;
+    background:#fff;
+    outline:3px solid transparent;
+    border:2px solid transparent;
+    text-align:center;
+    transition:0.3s;
+    box-sizing: border-box;
+    box-shadow:0 0 25px rgba(0,0,0,0.1);
+    cursor:pointer;
+}
+.contest:hover{
+    outline:3px solid #eee;
+    border:2px solid #333;
+}
+.contest.ongoing{
+    background: rgb(56,200,56);
+    color: #fff;
+    box-shadow: 0 0 25px rgba(56,250,56,0.6);
+}
+.contest.ongoing:hover{
+    background: rgb(36,210,36);
+    outline: 3px solid rgb(56,210,56);
+    border: 2px solid #fff;
+}
+.contest.mock{
+    background: rgb(230,230,46);
+    color: #000;
+    box-shadow: 0 0 25px rgba(230,230,46,0.6);
+}
+.contest.mock:hover{
+    background: rgb(240,240,66);
+    outline: 3px solid rgb(230,230,46);
+    border: 2px solid #fff;
+}
+.contest-title{
+    width:100%;
+    height:60%;
+    font-size:18px;
+    padding:50px;
+    transition:0.1s;
+    box-sizing: border-box;
+}
+.contest:hover .contest-title{
+    font-size:25px;
+}
+.contest-details{
+    width:100%;
+    height:40%;
+    font-size:14px;
+    padding:20px;
+    box-sizing:border-box;
+}
+@media screen and (max-width:1080px){
+  .contest{
+    width:40%;
+    margin:5%;
+  }
+}
+@media screen and (max-width:760px){
+  .contest{
+    width:80%;
+    margin:10%;
+  }
+}
