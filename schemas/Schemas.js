@@ -17,6 +17,8 @@ const constest_schema = new Schema({
   type: String,
   details: String,
   additionalDetails: String,
+  start_time: [Number],
+  end_time: [Number],
   questions: [question_schema]
 });
 

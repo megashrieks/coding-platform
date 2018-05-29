@@ -4,6 +4,7 @@ const fs = require('fs');
 const port = 5000;
 const mongoose = require('mongoose');
 const cors = require('cors');
+const { get_remaining_time } = require('./time');
 
 const { username, password } = require('./credentials/mlab.js');
 const url = `mongodb://${username}:${password}@ds231529.mlab.com:31529/coding-platform`
@@ -59,7 +60,7 @@ app.get('/api/contests', (req, res) => {
 
 const get_questions = (contest_id) => {
   return new Promise((resolve, reject) => {
-    Contest.findById(contest_id, 'questions title', (err, data) => {
+    Contest.findById(contest_id, 'title start_time end_time questions', (err, data) => {
       if(err) 
         reject(err);
       else {
@@ -71,14 +72,16 @@ const get_questions = (contest_id) => {
 
 
 app.get('/api/contests/:contest_id/questions', (req, res) => {
+  console.log('request');
   get_questions(req.params.contest_id)
   .then(data => {
     let resp = {};
     resp['contestName'] = data.title;
-    resp['timeRemaining'] = [0, 0, 1, 0];
+    resp['timeRemaining'] = get_remaining_time(data.start_time, data.end_time);
     resp['questions'] = [];
-    if(data.questions.length == 0)
+    if(data.questions.length == 0) {
       res.json(resp);
+    }
     else {
       resp['questions'] = data.questions.map((question) => {
         return {
@@ -90,6 +93,7 @@ app.get('/api/contests/:contest_id/questions', (req, res) => {
           difficulty: question.difficulty
         }
       });
+      console.log(resp.timeRemaining);
       res.json(resp);
     }   
   })
