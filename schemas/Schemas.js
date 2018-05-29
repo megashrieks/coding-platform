@@ -8,12 +8,29 @@ const constest_schema = new Schema({
   additionalDetails: String
 });
 
-// const quetion_schema = new Schema({
-//   title: String,
-//   question: String,
-// });
+const question_schema = new Schema({
+  title: String,
+  question: String,
+  details: String,
+  test_cases: String,
+  test_case_results: String,
+  additional_details: Object
+});
+
+const questions_schema = new Schema({
+  contest_id: String,
+  questions: [question_schema]
+})
+
+const Questions = mongoose.model('question', questions_schema);
+
+// questions collection has questions of all the contests.
+// use contest_id to retrive questions.
+
 const Contest = mongoose.model('contest', constest_schema);
 
 module.exports = {
-  Contest
+  question_schema,
+  Contest,
+  Questions
 }

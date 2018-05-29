@@ -8,12 +8,18 @@ class QuestionPage extends Component{
     componentDidMount() {
         let contestId = this.props.match.params.contestId;
         axios.get('http://localhost:5000/api/contests/'+contestId+'/questions')
-            .then((data) => this.setState({data:data.data}))
-            .catch(data => console.log);
+            .then((data) => {
+                console.log(data.data);
+                if(data.data.length == 0) 
+                    console.log('no questions');
+                else 
+                    this.setState({data:data.data})
+            })
+            .catch(err => console.log(err));
     }
     render() {
         var questions = this.state.data.map((element, index) => {
-            return <li>{element.title}</li>
+            return <li key={index}>{element.title}</li>
         });
         return (
             <Fragment>

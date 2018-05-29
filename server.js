@@ -12,12 +12,27 @@ mongoose.connect(url);
 
 
 const schemas = require('./schemas/Schemas');
-const Contest = schemas.Contest;
+const { Contest, Questions, question_schema } = schemas;
+// Questions is a collection, containing questions of all the contests.
+
 app.use(cors());
 
+const add_contest_content = (contest_id, questions) => {
+  new Questions({
+    contest_id,
+    questions
+  }).save()
+  .then(data => console.log(data))
+  .catch(err => console.log(err));
+}
 
-
-
+const add_question_to_a_contest = (contest_id, question) => {
+  Questions.findOneAndUpdate({contest_id: contest_id}, 
+    {$push:{questions: question}}, (err, data) => {
+      if(err) throw err;
+      console.log(data);
+    })
+}
 
 const add_contest = (title, type, details, additionalDetails) => {
   new Contest({
@@ -42,6 +57,42 @@ app.get('/api/contests', (req, res) => {
   get_contensts()
   .then((data) => res.json(data))
   .catch((err) => res.json(err));
+});
+
+
+
+const get_questions = (contest_id) => {
+  return new Promise((resolve, reject) => {
+    Questions.findOne({contest_id: contest_id}, (err, data) => {
+      if(err) 
+        reject(err);
+      else {
+        if(data == null)
+          data = [];
+        resolve(data);
+      }
+    })
+  });
+}
+
+
+app.get('/api/contests/:contest_id/questions', (req, res) => {
+  get_questions(req.params.contest_id)
+  .then(data => {
+    if(data.length == 0)
+      res.json([]);
+    else {
+      let modified_question_array = data.questions.map((question) => {
+        return {
+          title: question.title,
+          details: question.details,
+          solved: 'full' // to be done dynamilcally somehow, later.
+        }
+      });
+      res.json(modified_question_array);
+    }   
+  })
+  .catch(err => res.json(err));
 });
 
 app.listen(port, () => {
