@@ -12,7 +12,7 @@ class ContestItem extends Component {
         var active = this.state.active ? " active" : "";
         return (
             <div className={"contest " + this.props.type + active}>
-                <Link to={"contests/"+this.props.linkId}>
+                <Link to={"contests/"+this.props._id}>
                     <div className="contest-title">
                         {this.props.title}
                     </div>
