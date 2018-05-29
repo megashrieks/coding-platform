@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component, Fragment } from 'react';
+import QuestionItem from './QuestionItem/QuestionItem';
 import './QuestionPage.css';
 import Timer from './Timer/Timer';
 class QuestionPage extends Component{
@@ -13,14 +14,16 @@ class QuestionPage extends Component{
             .then((data) => {
                 if (data.data.length === 0)
                     console.log('no questions');
-                else
+                else {
+                    console.log(data.data);
                     this.setState({
                         ...this.state,
                         data: {
                             ...this.state.data,
-                            questions:data.data
+                            questions: data.data
                         }
-                    })
+                    });
+                }
             })
             .catch(data => console.log);
         // this.setState({
@@ -57,13 +60,9 @@ class QuestionPage extends Component{
     render() {
         var questions = this.state.data.questions !== undefined ?
             this.state.data.questions.map((element, index) => {
+                
                 return (
-                    <div
-                        className={"question " + element.solved}
-                        key={"question" + index}
-                    >
-                        {element.title}
-                    </div>
+                    <QuestionItem key={"question" + index} element={element}/>
                 )
             }):null;
         return (
@@ -72,7 +71,9 @@ class QuestionPage extends Component{
                     {this.state.data.contestName || "Loading contest details.."}
                 </h1>
                 {this.state.data.timeRemaining && <Timer timer={this.state.data.timeRemaining} />}
-                {questions}
+                <div className="questions-container">
+                    {questions}
+                </div>
             </Fragment>
         );
     }
