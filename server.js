@@ -8,7 +8,16 @@ const cors = require('cors');
 const { username, password } = require('./credentials/mlab.js');
 const url = `mongodb://${username}:${password}@ds231529.mlab.com:31529/coding-platform`
 mongoose.connect(url);
+const solved_choices = [
+  'full', 
+  'no',
+  'partial'
+];
 
+const getRandomFrom = (arr) => {
+  let len = arr.length;
+  return arr[Math.floor(Math.random()*len)];
+}
 
 
 const schemas = require('./schemas/Schemas');
@@ -88,7 +97,7 @@ app.get('/api/contests/:contest_id/questions', (req, res) => {
         return {
           title: question.title,
           details: question.details,
-          solved: 'full', 
+          solved: getRandomFrom(solved_choices), 
           solvedBy: question.solvedBy,
           difficulty: question.difficulty
         }
