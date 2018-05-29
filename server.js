@@ -67,8 +67,6 @@ const get_questions = (contest_id) => {
       if(err) 
         reject(err);
       else {
-        if(data == null)
-          data = [];
         resolve(data);
       }
     })
@@ -79,10 +77,14 @@ const get_questions = (contest_id) => {
 app.get('/api/contests/:contest_id/questions', (req, res) => {
   get_questions(req.params.contest_id)
   .then(data => {
+    let resp = {};
+    resp['contestName'] = 'codex';
+    resp['timeRemaining'] = [0, 0, 0, 10];
+    resp['questions'] = [];
     if(data.length == 0)
-      res.json(data);
+      res.json(resp);
     else {
-      let modified_question_array = data.questions.map((question) => {
+      resp['questions'] = data.questions.map((question) => {
         return {
           title: question.title,
           details: question.details,
@@ -91,8 +93,8 @@ app.get('/api/contests/:contest_id/questions', (req, res) => {
           difficulty: question.difficulty
         }
       });
-      console.log(modified_question_array);
-      res.json(modified_question_array);
+      console.log(resp.questions);
+      res.json(resp);
     }   
   })
   .catch(err => res.json(err));

@@ -15,14 +15,10 @@ class QuestionPage extends Component{
                     console.log('no questions');
                 else
                     this.setState({
-                        ...this.state,
-                        data: {
-                            ...this.state.data,
-                            questions:data.data
-                        }
+                        data: data.data
                     })
             })
-            .catch(data => console.log);
+            .catch(err => console.log(err));
         // this.setState({
         //     data: {
         //         contestName:"codex",
