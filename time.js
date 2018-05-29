@@ -28,7 +28,7 @@ const get_remaining_time = (s_time, e_time) => {
   temp %= 3600;
   arr.push(floor(temp / 60));
   temp %= 60;
-  arr.push(temp);     
+  arr.push(temp);
   return arr
 }
 

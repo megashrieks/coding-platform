@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { Component, Fragment } from 'react';
+import './ContestPage.css';
 import QuestionItem from './QuestionItem/QuestionItem';
-import './QuestionPage.css';
 import Timer from './Timer/Timer';
-class QuestionPage extends Component{
+class ContestPage extends Component{
     state = {
         data: {},
         once:true
@@ -43,4 +43,4 @@ class QuestionPage extends Component{
         );
     }
 } 
-export default QuestionPage;
+export default ContestPage;
