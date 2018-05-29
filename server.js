@@ -1,15 +1,23 @@
 const express = require('express');
 const app = express();
+const fs = require('fs');
 const port = 5000;
 const mongoose = require('mongoose');
-const url = "mongodb://raiden101:101raiden@ds231529.mlab.com:31529/coding-platform";
 const cors = require('cors');
+
+const mlab = JSON.parse(fs.readFileSync('mlab.json').toString());
+const url = `mongodb://${mlab.username}:${mlab.password}@ds231529.mlab.com:31529/coding-platform`
+mongoose.connect(url);
+
+
 
 const schemas = require('./schemas/Schemas');
 const Contest = schemas.Contest;
 app.use(cors());
 
-mongoose.connect(url);
+
+
+
 
 const add_contest = (title, type, details, additionalDetails) => {
   new Contest({
