@@ -22,7 +22,7 @@ const question_schema = new Schema({
 const questions_schema = new Schema({
   contest_id: String,
   contest_name: String,
-  questions: [question_schema],
+  questions: [question_schema]
 })
 
 const Questions = mongoose.model('question', questions_schema);

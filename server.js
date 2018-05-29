@@ -63,7 +63,7 @@ app.get('/api/contests', (req, res) => {
 
 const get_questions = (contest_id) => {
   return new Promise((resolve, reject) => {
-    Questions.findOne({contest_id: contest_id}, (err, data) => {
+    Questions.findOne({contest_id: contest_id}, 'questions contest_name', (err, data) => {
       if(err) 
         reject(err);
       else {
@@ -78,10 +78,10 @@ app.get('/api/contests/:contest_id/questions', (req, res) => {
   get_questions(req.params.contest_id)
   .then(data => {
     let resp = {};
-    resp['contestName'] = 'codex';
+    resp['contestName'] = data.contest_name;
     resp['timeRemaining'] = [0, 0, 0, 10];
     resp['questions'] = [];
-    if(data.length == 0)
+    if(data.questions.length == 0)
       res.json(resp);
     else {
       resp['questions'] = data.questions.map((question) => {
@@ -93,7 +93,6 @@ app.get('/api/contests/:contest_id/questions', (req, res) => {
           difficulty: question.difficulty
         }
       });
-      console.log(resp.questions);
       res.json(resp);
     }   
   })
