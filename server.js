@@ -21,7 +21,7 @@ const getRandomFrom = (arr) => {
 
 
 const schemas = require('./schemas/Schemas');
-const { Contest, Questions, question_schema } = schemas;
+const { Contest, Questions, question } = schemas;
 // Questions is a collection, containing questions of all the contests.
 
 app.use(cors());
@@ -95,6 +95,7 @@ app.get('/api/contests/:contest_id/questions', (req, res) => {
     else {
       resp['questions'] = data.questions.map((question) => {
         return {
+          question_id: question._id,
           title: question.title,
           details: question.details,
           solved: getRandomFrom(solved_choices), 
@@ -102,6 +103,7 @@ app.get('/api/contests/:contest_id/questions', (req, res) => {
           difficulty: question.difficulty
         }
       });
+      console.log(resp);
       res.json(resp);
     }   
   })

@@ -25,6 +25,7 @@ const questions_schema = new Schema({
   questions: [question_schema]
 })
 
+const question = mongoose.model('ques', question_schema);
 const Questions = mongoose.model('question', questions_schema);
 
 // questions collection has questions of all the contests.
@@ -33,7 +34,7 @@ const Questions = mongoose.model('question', questions_schema);
 const Contest = mongoose.model('contest', constest_schema);
 
 module.exports = {
-  question_schema,
+  question,
   Contest,
   Questions
 }
