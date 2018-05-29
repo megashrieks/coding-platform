@@ -3,15 +3,14 @@ import './QuestionItem.css';
 class QuestionItem extends Component{
     render() {
         let status = "";
-        console.log(this.props);
         switch (this.props.element.solved) {
-            case "full": status = "solved";
+            case "full": status = "Solved";
                 break;
-            case "partial": status = "partially solved";
+            case "partial": status = "Partially Solved";
                 break;
-            case "no": status = "not solved"
+            case "no": status = "Not Solved"
                 break;
-            default: status = "not attempted"
+            default: status = "Not Attempted"
         }
         return (
             <div className={"question " + this.props.element.solved}>

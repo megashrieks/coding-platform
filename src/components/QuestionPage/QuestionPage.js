@@ -14,8 +14,8 @@ class QuestionPage extends Component{
             .then((data) => {
                 if (data.data.length === 0)
                     console.log('no questions');
+                    /*TODO handle this in the component*/
                 else {
-                    console.log(data.data);
                     this.setState({
                         data: data.data
                     })

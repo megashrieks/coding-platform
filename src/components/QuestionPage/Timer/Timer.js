@@ -7,7 +7,6 @@ class Timer extends Component{
             once:true,
             timeRemaining: this.props.timer
         };
-        console.log(props)
     }
     decrementTimer = () => {
         let time = this.state.timeRemaining;
@@ -47,10 +46,10 @@ class Timer extends Component{
             seconds: this.state.timeRemaining !== undefined &&
                 this.state.timeRemaining[3] !== 0
         }
-        let notStarted = (timingDetails[0] == -1 &&
-            timingDetails[1] == -1 &&
-            timingDetails[2] == -1 &&
-            timingDetails[3] == -1) ?
+        let notStarted = (timingDetails[0] === -1 &&
+            timingDetails[1] === -1 &&
+            timingDetails[2] === -1 &&
+            timingDetails[3] === -1) ?
             <b>Contest has not yet started</b> : <b>contest has ended</b>;
         return <div className="time-remaining">
             {
