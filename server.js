@@ -80,15 +80,18 @@ app.get('/api/contests/:contest_id/questions', (req, res) => {
   get_questions(req.params.contest_id)
   .then(data => {
     if(data.length == 0)
-      res.json([]);
+      res.json(data);
     else {
       let modified_question_array = data.questions.map((question) => {
         return {
           title: question.title,
           details: question.details,
-          solved: 'full' // to be done dynamilcally somehow, later.
+          solved: 'full', 
+          solvedBy: question.solvedBy,
+          difficulty: question.difficulty
         }
       });
+      console.log(modified_question_array);
       res.json(modified_question_array);
     }   
   })
