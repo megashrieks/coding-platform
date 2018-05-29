@@ -7,10 +7,16 @@ class QuestionPage extends Component{
         once:true
     };
     componentDidMount() {
-        // let contestId = this.props.match.params.contestId;
-        // axios.get('http://localhost:5000/api/contests/'+contestId+'/questions')
-        //     .then((data) => this.setState({data:data.data}))
-        //     .catch(data => console.log);
+        let contestId = this.props.match.params.contestId;
+        axios.get('http://localhost:5000/api/contests/'+contestId+'/questions')
+            .then((data) => {
+                console.log(data.data);
+                if (data.data.length == 0)
+                    console.log('no questions');
+                else
+                    this.setState({ data: data.data })
+            })
+            .catch(data => console.log);
         this.setState({
             data: {
                 contestName:"codex",
@@ -45,14 +51,14 @@ class QuestionPage extends Component{
     render() {
         var questions = this.state.data.questions !== undefined &&
             this.state.data.questions.map((element, index) => {
-            return (
-                <div
-                    className={"question "+element.solved}
-                    key={"question" + index}
+                return (
+                    <div
+                        className={"question " + element.solved}
+                        key={"question" + index}
                     >
-                    {element.title}
-                </div>
-            )
+                        {element.title}
+                    </div>
+                )
             });
         return (
             <Fragment>
