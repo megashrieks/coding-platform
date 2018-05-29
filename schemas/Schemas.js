@@ -1,13 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const constest_schema = new Schema({
-  title: String,
-  type: String,
-  details: String,
-  additionalDetails: String
-});
-
 const question_schema = new Schema({
   title: String,
   question: String,
@@ -19,22 +12,20 @@ const question_schema = new Schema({
   difficulty: Number
 });
 
-const questions_schema = new Schema({
-  contest_id: String,
-  contest_name: String,
+const constest_schema = new Schema({
+  title: String,
+  type: String,
+  details: String,
+  additionalDetails: String,
   questions: [question_schema]
-})
+});
+
 
 const question = mongoose.model('ques', question_schema);
-const Questions = mongoose.model('question', questions_schema);
-
-// questions collection has questions of all the contests.
-// use contest_id to retrive questions.
 
 const Contest = mongoose.model('contest', constest_schema);
 
 module.exports = {
   question,
   Contest,
-  Questions
 }
