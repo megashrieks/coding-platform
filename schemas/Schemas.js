@@ -14,11 +14,14 @@ const question_schema = new Schema({
   details: String,
   test_cases: String,
   test_case_results: String,
-  additional_details: Object
+  additional_details: Object,
+  solvedBy: Number,
+  difficulty: Number
 });
 
 const questions_schema = new Schema({
   contest_id: String,
+  contest_name: String,
   questions: [question_schema]
 })
 

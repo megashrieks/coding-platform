@@ -10,22 +10,18 @@ class QuestionPage extends Component{
     };
     componentDidMount() {
         let contestId = this.props.match.params.contestId;
-        axios.get('http://localhost:5000/api/contests/'+contestId+'/questions')
+        axios.get('http://localhost:5000/api/contests/' + contestId + '/questions')
             .then((data) => {
                 if (data.data.length === 0)
                     console.log('no questions');
                 else {
                     console.log(data.data);
                     this.setState({
-                        ...this.state,
-                        data: {
-                            ...this.state.data,
-                            questions: data.data
-                        }
-                    });
+                        data: data.data
+                    })
                 }
             })
-            .catch(data => console.log);
+            .catch(err => console.log(err));
         // this.setState({
         //     data: {
         //         contestName:"codex",

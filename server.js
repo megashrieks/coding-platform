@@ -63,12 +63,10 @@ app.get('/api/contests', (req, res) => {
 
 const get_questions = (contest_id) => {
   return new Promise((resolve, reject) => {
-    Questions.findOne({contest_id: contest_id}, (err, data) => {
+    Questions.findOne({contest_id: contest_id}, 'questions contest_name', (err, data) => {
       if(err) 
         reject(err);
       else {
-        if(data == null)
-          data = [];
         resolve(data);
       }
     })
@@ -79,17 +77,23 @@ const get_questions = (contest_id) => {
 app.get('/api/contests/:contest_id/questions', (req, res) => {
   get_questions(req.params.contest_id)
   .then(data => {
-    if(data.length == 0)
-      res.json([]);
+    let resp = {};
+    resp['contestName'] = data.contest_name;
+    resp['timeRemaining'] = [0, 0, 0, 10];
+    resp['questions'] = [];
+    if(data.questions.length == 0)
+      res.json(resp);
     else {
-      let modified_question_array = data.questions.map((question) => {
+      resp['questions'] = data.questions.map((question) => {
         return {
           title: question.title,
           details: question.details,
-          solved: 'full' // to be done dynamilcally somehow, later.
+          solved: 'full', 
+          solvedBy: question.solvedBy,
+          difficulty: question.difficulty
         }
       });
-      res.json(modified_question_array);
+      res.json(resp);
     }   
   })
   .catch(err => res.json(err));
