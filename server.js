@@ -5,8 +5,8 @@ const port = 5000;
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const mlab = JSON.parse(fs.readFileSync('mlab.json').toString());
-const url = `mongodb://${mlab.username}:${mlab.password}@ds231529.mlab.com:31529/coding-platform`
+const { username, password } = require('./credentials/mlab.js');
+const url = `mongodb://${username}:${password}@ds231529.mlab.com:31529/coding-platform`
 mongoose.connect(url);
 
 

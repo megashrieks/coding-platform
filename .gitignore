@@ -3,7 +3,7 @@
 # dependencies
 /node_modules
 
-mlab.json
+/credentials/
 
 # testing
 /coverage
