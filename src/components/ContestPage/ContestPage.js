@@ -8,6 +8,7 @@ class ContestPage extends Component{
         data: {},
         once:true
     };
+    unmounted = false;
     componentDidMount() {
         let contestId = this.props.match.params.contestId;
         axios.get('http://localhost:5000/api/contests/' + contestId + '/questions')
@@ -17,12 +18,15 @@ class ContestPage extends Component{
                     console.log('no questions');
                     /*TODO handle this in the component*/
                 else {
-                    this.setState({
+                    !this.unmounted && this.setState({
                         data: data.data.data
                     })
                 }
             })
             .catch(err => console.log(err));
+    }
+    componentWillUnmount() {
+        this.unmounted = true;
     }
     render() {
         var questions = this.state.data.questions !== undefined ?
