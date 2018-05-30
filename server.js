@@ -61,9 +61,29 @@ const add_contest = (title, type, details, additionalDetails) => {
   .catch((err) => console.log(err));
 }
 
+const sum = (arr) => {
+  let tot = 0;
+  for(let i=0;i<arr.length;++i)
+    tot += arr[i];
+  return tot;
+}
 app.get('/api/contests', (req, res) => {
-  Contest.find({}, 'title type details additionalDetails')
-    .then(data => res.status(200).json({data: data, error: null}))
+  Contest.find({}, 'title type details additionalDetails start_time end_time')
+    .then(data => {
+      for(let i=0;i<data.length;++i) {
+        let time = get_remaining_time(data[i].start_time, data[i].end_time);
+        delete data[i].start_time;
+        delete data[i].end_time;
+        let tot = sum(time);
+        if(tot == 0)
+          data[i].type = 'mock';
+        else if(tot < 0)
+          data[i].type = 'future';
+        else
+          data[i].type = 'ongoing';
+      }
+      res.status(200).json({data: data, error: null})
+    })
     .catch(err => res.status(404).json({error: err, data: null}));
 });
 
