@@ -12,7 +12,7 @@ class ContestList extends Component{
     }
     componentDidMount() {
         axios.get('http://localhost:5000/api/contests')
-        .then((data) => this.setState({data: data.data}))
+        .then((data) => this.setState({data: data.data.data}))
         .catch((err) => console.log(err));
     }
     render() {

@@ -63,15 +63,15 @@ const add_contest = (title, type, details, additionalDetails) => {
 
 app.get('/api/contests', (req, res) => {
   Contest.find({})
-    .then(data => res.json(data))
-    .catch(err => res.json(err));
+    .then(data => res.status(200).json({data: data, error: null}))
+    .catch(err => res.status(404).json({error: err, data: null}));
 });
 
 
 
-const get_questions = (contest_id) => {
+const get_questions = (contest_id, requirments_arr) => {
   return new Promise((resolve, reject) => {
-    Contest.findById(contest_id, 'title start_time end_time questions', (err, data) => {
+    Contest.findById(contest_id, requirments_arr.join(' '), (err, data) => {
       if(err) 
         reject(err);
       else {
@@ -83,15 +83,15 @@ const get_questions = (contest_id) => {
 
 
 app.get('/api/contests/:contest_id/questions', (req, res) => {
-  console.log('request');
-  get_questions(req.params.contest_id)
+  get_questions(req.params.contest_id, 
+  ['title' ,'start_time' ,'end_time' ,'questions'])
   .then(data => {
     let resp = {};
     resp['contestName'] = data.title;
     resp['timeRemaining'] = get_remaining_time(data.start_time, data.end_time);
     resp['questions'] = [];
     if(data.questions.length == 0) {
-      res.json(resp);
+      res.status(200).json({data: resp, error: null});
     }
     else {
       resp['questions'] = data.questions.map((question) => {
@@ -104,10 +104,35 @@ app.get('/api/contests/:contest_id/questions', (req, res) => {
           difficulty: question.difficulty
         }
       });
-      res.json(resp);
+      res.status(200).json({data: resp, error: null});
     }   
   })
-  .catch(err => res.json(err));
+  .catch(err => res.status(404).json({data: null, error: 'error'}));
+});
+
+const purify = (question) => {
+  
+  question.test_cases.private = undefined;
+  question.test_case_results.private = undefined;  
+  return question; 
+}
+
+app.get('/api/contests/:contest_id/questions/:question_id', (req, res) => {
+  let qid = req.params.question_id;
+  get_questions(req.params.contest_id, ['questions'])
+  .then(
+    (data) => {
+      let questions = data.questions, i;
+      for(i=0;i<questions.length;++i)
+        if(questions[i]._id == qid) {
+          res.status(200).json({data: purify(questions[i]), error: null});
+          break;
+        }
+      if(i == questions.length)
+        res.status(404).json({data: null, error: 'no such question'});
+    }
+  )
+  .catch(err => res.status(404).json({data: null, error: 'error!!'}));
 });
 
 app.listen(port, () => {

@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
+
 const question_schema = new Schema({
   title: String,
   question: String,
   details: String,
-  test_cases: String,
-  test_case_results: String,
+  test_cases: {},
+  test_case_results: {},
   additional_details: Object,
   solvedBy: Number,
   difficulty: Number
