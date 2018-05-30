@@ -62,7 +62,7 @@ const add_contest = (title, type, details, additionalDetails) => {
 }
 
 app.get('/api/contests', (req, res) => {
-  Contest.find({})
+  Contest.find({}, 'title type details additionalDetails')
     .then(data => res.status(200).json({data: data, error: null}))
     .catch(err => res.status(404).json({error: err, data: null}));
 });
