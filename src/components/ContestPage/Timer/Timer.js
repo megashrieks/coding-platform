@@ -37,6 +37,9 @@ class Timer extends Component{
             timeRemaining: time
         })
     }
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
     render() {
         let timingDetails = {
             days: this.state.timeRemaining !== undefined &&
