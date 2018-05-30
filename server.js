@@ -114,6 +114,8 @@ const purify = (question) => {
   
   question.test_cases.private = undefined;
   question.test_case_results.private = undefined;  
+  question.test_cases = question.test_cases.public;
+  question.test_case_results = question.test_case_results.public;  
   return question; 
 }
 
