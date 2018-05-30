@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const router = require('express').Router();
-const { key } = require('../../credentials/sercret_key');
+const { key } = require('../../credentials/secret_key');
 
 const get_jwt_token = (data) => {
   let token = jwt.sign(data, key);
