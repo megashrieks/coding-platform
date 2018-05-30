@@ -34,7 +34,7 @@ const add_question_to_a_contest = (contest_id, question) => {
   Contest.findById(contest_id, {$push:{questions: question}}, 
     (err, data) => {
       if(err) throw err;
-      console.log(data);
+      console.log(data, 'question added.');
     })
 }
 
@@ -46,7 +46,7 @@ const add_contest = (title, type, details, additionalDetails) => {
     additionalDetails,
     questions: []
   }).save()
-  .then((data) => console.log(data))
+  .then((data) => console.log(data, 'added contest successfully'))
   .catch((err) => console.log(err));
 }
 
@@ -93,7 +93,6 @@ app.get('/api/contests/:contest_id/questions', (req, res) => {
           difficulty: question.difficulty
         }
       });
-      console.log(resp.timeRemaining);
       res.json(resp);
     }   
   })

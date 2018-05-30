@@ -17,6 +17,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "serve": 
+    "concurrently --kill-others \"nodemon server.js\" \"npm start\""
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
   }
 }
