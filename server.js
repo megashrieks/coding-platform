@@ -4,19 +4,30 @@ const fs = require('fs');
 const port = 5000;
 const mongoose = require('mongoose');
 const cors = require('cors');
-const { get_remaining_time } = require('./time');
+const { get_remaining_time } = require('./server/time/time');
 
+/////////////////////////////
+// mlab related
 const { username, password } = require('./credentials/mlab.js');
 const url = `mongodb://${username}:${password}@ds231529.mlab.com:31529/coding-platform`
 mongoose.connect(url);
 
 const schemas = require('./schemas/Schemas');
 const { Contest, question } = schemas;
+//////////////////////////////////////////
 
 app.use(cors());
 
-
+/////////////////////////////
+// body - parser related.
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use('/api/auth', require('./server/auth/auth'));
 //////////////////////////////
+
+
+
 // utils.
 const solved_choices = [
   'full', 
