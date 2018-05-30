@@ -1,0 +1,22 @@
+.test{
+    width:100%;
+    height:auto;
+    background:#ddd;
+    display:table;
+}
+.test-data,.test-result{
+    padding:30px;
+    padding-top:5px;
+    font-family: monospace;
+    box-sizing: border-box;
+    display:table-cell;
+    white-space:pre-wrap;
+}
+.tr{
+    display:table-row;
+    line-height:40px;
+}
+.tc{
+    display:table-cell;
+    text-align: center;
+}

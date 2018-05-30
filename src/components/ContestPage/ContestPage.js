@@ -27,7 +27,10 @@ class ContestPage extends Component{
         var questions = this.state.data.questions !== undefined ?
             this.state.data.questions.map((element, index) => {
                 return (
-                    <QuestionItem key={"question" + index} element={element}/>
+                    <QuestionItem
+                        key={"question" + index}
+                        element={element}
+                        contestId={this.props.match.params}/>
                 )
             }):null;
         return (
