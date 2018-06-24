@@ -1,12 +1,14 @@
 .test{
     width:100%;
     height:auto;
-    background:#ddd;
+    background:#fafafa;
+    border-collapse:collapse;
     display:table;
 }
 .test-data,.test-result{
     padding:30px;
     padding-top:5px;
+    border:1px solid #666;
     font-family: monospace;
     box-sizing: border-box;
     display:table-cell;
@@ -14,9 +16,10 @@
 }
 .tr{
     display:table-row;
+    background:#eee;
     line-height:40px;
 }
 .tc{
-    display:table-cell;
+    display:table-cell;border:1px solid #333;
     text-align: center;
 }
